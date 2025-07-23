@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: github-repositories-api
+github:
+  base-url: https://api.github.com
+  repositories-url: ${github.base-url}/users/{userName}/repos
+  branches-url: ${github.base-url}/repos/{userName}/{repositoryName}/branches
+
