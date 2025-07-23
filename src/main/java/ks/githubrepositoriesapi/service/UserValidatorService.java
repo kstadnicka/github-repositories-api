@@ -1,5 +1,7 @@
-package ks.githubrepositoriesapi;
+package ks.githubrepositoriesapi.service;
 
+import ks.githubrepositoriesapi.utils.ErrorMessagesUtils;
+import ks.githubrepositoriesapi.utils.FindGithubUserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;

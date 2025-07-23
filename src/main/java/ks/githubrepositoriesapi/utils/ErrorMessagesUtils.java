@@ -1,4 +1,4 @@
-package ks.githubrepositoriesapi;
+package ks.githubrepositoriesapi.utils;
 
 public class ErrorMessagesUtils {
 

@@ -2,6 +2,7 @@ package ks.githubrepositoriesapi;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
+import ks.githubrepositoriesapi.api.UserRepositoryResponse;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -51,21 +52,21 @@ class GithubRepositoriesApiApplicationTests {
 
     @Test
     void shouldReturnValidRepositoriesForExistingUser() {
+        //given
         String userName = "kstadnicka";
+        String getUserResponseBody = GithubRepositoriesApiApplicationTestResponses.GET_REPOSITORY_RESPONSE_BODY;
+        String getBranchResponseBody =GithubRepositoriesApiApplicationTestResponses.GET_BRANCH_RESPONSE_BODY;
+        String url = "http://localhost:" + port + "/repositories/" + userName;
 
+        //when
         stubFor(get(urlEqualTo("/users/" + userName))
                 .willReturn(ok()));
-
-        String getUserResponseBody = GithubRepositoriesApiApplicationTestResponses.GET_REPOSITORY_RESPONSE_BODY;
         stubFor(get(urlEqualTo("/users/" + userName + "/repos"))
                 .willReturn(okJson(getUserResponseBody)));
-
-        String getBranchResponseBody =GithubRepositoriesApiApplicationTestResponses.GET_BRANCH_RESPONSE_BODY;
         stubFor(get(urlEqualTo("/repos/" + userName + "/books-app/branches"))
                 .willReturn(okJson(getBranchResponseBody)));
 
-        String url = "http://localhost:" + port + "/repositories/" + userName;
-
+        //then
         ResponseEntity<UserRepositoryResponse[]> response =
                 restTemplate.getForEntity(url, UserRepositoryResponse[].class);
 
@@ -77,7 +78,7 @@ class GithubRepositoriesApiApplicationTests {
         assertThat(repo.getRepositoryName()).isEqualTo("books-app");
         assertThat(repo.getOwnerLogin()).isEqualTo("kstadnicka");
         assertThat(repo.getBranches()).hasSize(1);
-        assertThat(repo.getBranches().get(0).getBranchName()).isEqualTo("main");
-        assertThat(repo.getBranches().get(0).getLastCommitSha()).isEqualTo("b443a76ddca69fefac2d72df3eb9675b797df635");
+        assertThat(repo.getBranches().getFirst().getBranchName()).isEqualTo("main");
+        assertThat(repo.getBranches().getFirst().getLastCommitSha()).isEqualTo("b443a76ddca69fefac2d72df3eb9675b797df635");
     }
 }

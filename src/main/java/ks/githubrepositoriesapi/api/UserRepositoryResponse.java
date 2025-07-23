@@ -1,4 +1,4 @@
-package ks.githubrepositoriesapi;
+package ks.githubrepositoriesapi.api;
 
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class UserRepositoryResponse {
 
         @Data
         @Builder
-        static class Branch{
+        public static class Branch{
             String branchName;
             String lastCommitSha;
         }

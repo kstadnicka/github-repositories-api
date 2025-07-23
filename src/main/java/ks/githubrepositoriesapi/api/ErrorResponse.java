@@ -1,4 +1,4 @@
-package ks.githubrepositoriesapi;
+package ks.githubrepositoriesapi.api;
 
 import lombok.Builder;
 import lombok.Data;
