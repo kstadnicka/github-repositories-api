@@ -39,7 +39,7 @@ public class UserRepositoryService implements FindGithubUserRepositoriesUsecase 
                 userName
         );
         if(!response.getStatusCode().is2xxSuccessful()){
-            throw new FindGithubUserException(response.getStatusCode(),String.format("GitHub user repositories cound not be retrieved for provided user %s",userName));
+            throw new FindGithubUserException(response.getStatusCode(),String.format(ErrorMessagesUtils.REPOSITORY_NOT_FOUND,userName));
         }
 
         List<UserRepositoryDto> userRepositories = Optional.ofNullable(response.getBody()).orElse(new ArrayList<>());
@@ -58,7 +58,7 @@ public class UserRepositoryService implements FindGithubUserRepositoriesUsecase 
                 Map.of("userName",userName,"repositoryName",userRepositoryDto.getName())
         );
         if(!response.getStatusCode().is2xxSuccessful()){
-            throw new FindGithubUserException(response.getStatusCode(),String.format("GitHub user repository branches cound not be retrieved for provided user %s and repository %s",userName, userRepositoryDto.getName()));
+            throw new FindGithubUserException(response.getStatusCode(),String.format(ErrorMessagesUtils.BRANCHES_NOT_FOUND,userName, userRepositoryDto.getName()));
         }
         return mapToUserRepositoryResponse(userRepositoryDto,response.getBody());
     }

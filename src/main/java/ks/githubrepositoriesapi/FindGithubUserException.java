@@ -1,7 +1,9 @@
 package ks.githubrepositoriesapi;
 
+import lombok.Data;
 import org.springframework.http.HttpStatusCode;
 
+@Data
 public class FindGithubUserException extends RuntimeException {
 
     HttpStatusCode statusCode;
