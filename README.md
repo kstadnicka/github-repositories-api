@@ -35,7 +35,7 @@ Returns a list of the user's non-forked repositories with their branches and lat
 
     GET http://localhost:8080/repositories/kstadnicka
 
-####  Example Response:
+#  Example Response:
 
         json
     [
